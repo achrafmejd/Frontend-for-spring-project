@@ -26,7 +26,17 @@ const email = value => {
   }
 };
 
-const vusername = value => {
+const vfirstname = value => {
+  if (value.length < 3 || value.length > 20) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        The username must be between 3 and 20 characters.
+      </div>
+    );
+  }
+};
+
+const vlastname = value => {
   if (value.length < 3 || value.length > 20) {
     return (
       <div className="alert alert-danger" role="alert">
@@ -50,12 +60,14 @@ export default class Register extends Component {
   constructor(props) {
     super(props);
     this.handleRegister = this.handleRegister.bind(this);
-    this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangeFirstname = this.onChangeFirstname.bind(this);
+    this.onChangeLastname = this.onChangeLastname.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
 
     this.state = {
-      username: "",
+      firstname: "",
+      lastname : "",
       email: "",
       password: "",
       successful: false,
@@ -63,9 +75,15 @@ export default class Register extends Component {
     };
   }
 
-  onChangeUsername(e) {
+  onChangeFirstname(e) {
     this.setState({
-      username: e.target.value
+      firstname: e.target.value
+    });
+  }
+
+  onChangeLastname(e) {
+    this.setState({
+      lastname: e.target.value
     });
   }
 
@@ -93,7 +111,8 @@ export default class Register extends Component {
 
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.register(
-        this.state.username,
+        this.state.firstname,
+        this.state.lastname,
         this.state.email,
         this.state.password
       ).then(
@@ -139,14 +158,26 @@ export default class Register extends Component {
             {!this.state.successful && (
               <div>
                 <div className="form-group">
-                  <label htmlFor="username">Username</label>
+                  <label htmlFor="firstname">Firstname</label>
                   <Input
                     type="text"
                     className="form-control"
-                    name="username"
-                    value={this.state.username}
-                    onChange={this.onChangeUsername}
-                    validations={[required, vusername]}
+                    name="firstname"
+                    value={this.state.firstname}
+                    onChange={this.onChangeFirstname}
+                    validations={[required, vfirstname]}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="lastname">Lastname</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="lastname"
+                    value={this.state.lastname}
+                    onChange={this.onChangeLastname}
+                    validations={[required, vlastname]}
                   />
                 </div>
 

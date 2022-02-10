@@ -19,6 +19,20 @@ class UserService {
   getAdminBoard() {
     return axios.get(API_URL + 'admin', { headers: authHeader() });
   }
+
+  getAllDocument(){
+    return axios.get('http://localhost:8080/documents', {headers : authHeader()});
+  }
+
+  getDocumentsSent(id){
+    
+    return axios.get(`http://localhost:8080/document-sent/${id}`, {headers : authHeader()});
+  }
+
+  getDocumentsReceived(id){
+    return axios.get(`http://localhost:8080/document-received/${id}`, {headers : authHeader()});
+  }
+
 }
 
 export default new UserService();

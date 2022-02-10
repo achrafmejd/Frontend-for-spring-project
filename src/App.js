@@ -12,6 +12,9 @@ import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
+import AllDocuments from "./components/all-documents.component";
+import DocumentsSent from "./components/document-sent.component";
+import DocumentsReceived from "./components/received-document.component";
 
 // import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
@@ -71,6 +74,18 @@ class App extends Component {
               <Link to={"/home"} className="nav-link">
                 Home
               </Link>
+              <Link to={"/document-sent"} className="nav-link">
+                Document Sent
+              </Link>
+              <Link to={"/document-received"} className="nav-link">
+                Document Received
+              </Link>
+              <Link to={"/document-received"} className="nav-link">
+                Send Document
+              </Link>
+              <Link to={"/all-documents"} className="nav-link">
+                All Documents
+              </Link>
             </li>
 
             {showModeratorBoard && (
@@ -89,10 +104,10 @@ class App extends Component {
               </li>
             )}
 
-            {currentUser && (
+           {currentUser && (
               <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
+                <Link to={"/profile"} className="nav-link">
+                  Profile
                 </Link>
               </li>
             )}
@@ -134,6 +149,9 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
+            <Route exact path="/all-documents" component={AllDocuments} />
+            <Route exact path="/document-sent" component={DocumentsSent}/>
+            <Route exact path="/document-received" component={DocumentsReceived} />
             <Route path="/user" component={BoardUser} />
             <Route path="/mod" component={BoardModerator} />
             <Route path="/admin" component={BoardAdmin} />
