@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { FaAmilia, FaKey, FaMailBulk, FaUser, FaUserCircle } from "react-icons/fa";
 import { Redirect } from "react-router-dom";
 import AuthService from "../services/auth.service";
 
@@ -28,32 +29,23 @@ export default class Profile extends Component {
     const { currentUser } = this.state;
 
     return (
-      <div className="container">
+      <div className="container profileContainer">
         {(this.state.userReady) ?
         <div>
         <header className="jumbotron">
-          <h3>
-            <strong>{currentUser.username}</strong> Profile
-          </h3>
+        <FaUserCircle style={{color:"green",fontSize:"8rem",margin:"30px"}}/> 
+          <h2>
+            <FaUser style={{color:'black',fontSize:"30px",marginRight:"10px"}}/> Username:  {currentUser.username}
+          </h2>
+        <h2>
+          <FaMailBulk style={{color:'black',fontSize:"30px",marginRight:"10px"}}/>
+          Email:  {currentUser.email}
+          
+        </h2  >
         </header>
-        <p>
-          <strong>Token:</strong>{" "}
-          {currentUser.accessToken.substring(0, 20)} ...{" "}
-          {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
-        </p>
-        <p>
-          <strong>Id:</strong>{" "}
-          {currentUser.id}
-        </p>
-        <p>
-          <strong>Email:</strong>{" "}
-          {currentUser.email}
-        </p>
-        <strong>Authorities:</strong>
-        <ul>
-          {currentUser.roles &&
-            currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-        </ul>
+        
+      
+       
       </div>: null}
       </div>
     );

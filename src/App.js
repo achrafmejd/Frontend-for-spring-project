@@ -18,6 +18,9 @@ import DocumentsReceived from "./components/received-document.component";
 
 // import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
+import AllEmployees from "./components/all-employees.component";
+import UploadFiles from "./components/upload-file.component";
+import { FaMailBulk, FaMailchimp, FaOutdent, FaUserAltSlash, FaUserCircle } from "react-icons/fa";
 
 class App extends Component {
   constructor(props) {
@@ -35,6 +38,7 @@ class App extends Component {
     const user = AuthService.getCurrentUser();
 
     if (user) {
+      console.log("hhhhhhhhhhhh",user.roles)
       this.setState({
         currentUser: user,
         showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
@@ -67,26 +71,41 @@ class App extends Component {
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to={"/"} className="navbar-brand">
-            bezKoder
+            <FaMailBulk style={{color:"green", fontSize:"40px",marginRight:"10px"}}/>
+            MB-Document
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
               <Link to={"/home"} className="nav-link">
                 Home
               </Link>
+              </li>
+              <li>
               <Link to={"/document-sent"} className="nav-link">
                 Document Sent
               </Link>
+              </li>
+              <li>
               <Link to={"/document-received"} className="nav-link">
                 Document Received
               </Link>
-              <Link to={"/document-received"} className="nav-link">
+            </li>
+            <li>
+              <Link to={"/send-document"} className="nav-link">
                 Send Document
               </Link>
+              </li>
+              {showAdminBoard&&
               <Link to={"/all-documents"} className="nav-link">
-                All Documents
+              All Documents
+            </Link>
+              }
+            {showAdminBoard&&
+            
+            <Link to={"/all-employees"} className="nav-link">
+                All employees
               </Link>
-            </li>
+            }
 
             {showModeratorBoard && (
               <li className="nav-item">
@@ -96,13 +115,13 @@ class App extends Component {
               </li>
             )}
 
-            {showAdminBoard && (
+            {/* {showAdminBoard && (
               <li className="nav-item">
                 <Link to={"/admin"} className="nav-link">
                   Admin Board
                 </Link>
               </li>
-            )}
+            )} */}
 
            {currentUser && (
               <li className="nav-item">
@@ -116,13 +135,13 @@ class App extends Component {
           {currentUser ? (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link to={"/profile"} className="nav-link">
-                  {currentUser.username}
+                <Link  to={"/profile"} className="nav-link">
+                 <FaUserCircle style={{color:"green"}}/> {currentUser.username}
                 </Link>
               </li>
               <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={this.logOut}>
-                  LogOut
+                <a style={{color:"red"}} href="/login" className="nav-link" onClick={this.logOut}>
+                  <FaOutdent/> LogOut
                 </a>
               </li>
             </div>
@@ -151,10 +170,12 @@ class App extends Component {
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/all-documents" component={AllDocuments} />
             <Route exact path="/document-sent" component={DocumentsSent}/>
-            <Route exact path="/document-received" component={DocumentsReceived} />
+            <Route exact path="/document-received" component={DocumentsReceived} />UploadFiles
+            <Route exact path="/send-document" component={UploadFiles} />
             <Route path="/user" component={BoardUser} />
             <Route path="/mod" component={BoardModerator} />
-            <Route path="/admin" component={BoardAdmin} />
+            <Route path="/admin" component={BoardAdmin} />  
+            <Route path="/all-employees" component={AllEmployees  } />
           </Switch>
         </div>
 

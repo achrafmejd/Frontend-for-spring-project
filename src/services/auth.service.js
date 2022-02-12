@@ -23,11 +23,13 @@ class AuthService {
   }
 
   register(firstname, lastname, email, password) {
+    const roles = ["user"];
     return axios.post(API_URL + "signup", {
       firstname,
       lastname,
       email,
-      password
+      password,
+      roles
     });
   }
 

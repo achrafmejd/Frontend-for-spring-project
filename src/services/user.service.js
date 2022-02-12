@@ -33,6 +33,9 @@ class UserService {
     return axios.get(`http://localhost:8080/document-received/${id}`, {headers : authHeader()});
   }
 
+  getAllEmployees(){
+    return axios.get('http://localhost:8080/employees', {headers : authHeader()});
+  }
 }
 
 export default new UserService();
